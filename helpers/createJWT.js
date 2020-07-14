@@ -1,15 +1,15 @@
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
+import getSecretKey from './getSecretKey.js'
 
-dotenv.config({ path: 'config.env' })
-
-const secretKey = process.env.SECRET_KEY
+const secretKey = getSecretKey()
 
 export default function createJWT(user) {
-
-    const token = jwt.sign({
-        data: user.password
-    }, secretKey, { expiresIn: '1h' });
-
-    return token
+    try {
+        const token = jwt.sign({
+            data: user
+        }, secretKey, { expiresIn: '1h' });
+        return token
+    } catch (err) {
+        throw new Error(err)
+    }
 }
