@@ -18,10 +18,13 @@
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.23"
+    "mongoose": "^5.9.23",
+    "waait": "^1.0.5"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "nodemon": "^2.0.4"
   }
 }
