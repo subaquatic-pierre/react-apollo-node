@@ -43,5 +43,11 @@ export const typeDefs = gql`
             email: String!
             password: String!
         ) : Token
+
+        loginUser(
+            username: String!
+            password: String!
+        ) : Token
+        
     }
 `
