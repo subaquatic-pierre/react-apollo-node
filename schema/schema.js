@@ -28,6 +28,8 @@ export const typeDefs = gql`
 
     type Query {
         getAllRecipes: [Recipe]
+        getRecipe(id:ID!): Recipe
+        getUser(token: String!): User
     }
 
     type Mutation {
@@ -43,7 +45,7 @@ export const typeDefs = gql`
             email: String!
             password: String!
         ) : Token
-
+        
         loginUser(
             username: String!
             password: String!

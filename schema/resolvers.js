@@ -1,25 +1,37 @@
 import createJWT from '../helpers/createJWT.js'
 import bcrypt from 'bcrypt';
+import getUser from '../helpers/getUser.js';
 
 export const resolvers = {
     Query: {
         getAllRecipes: async (root, args, { Recipe }) => {
             const allRecipes = await Recipe.find()
+                .populate('user')
             return allRecipes
         },
+        getRecipe: async (root, { id }, { Recipe }) => {
+            const recipe = Recipe.findOne({ _id: id })
+            return recipe
+        },
+        getUser: async (root, { token }, { User }) => {
+            const currentUser = await getUser(token)
+            if (currentUser) return currentUser
+            return null
+        }
     },
     Mutation: {
-        addRecipe: async (root, { name, category, description, instructions }, { Recipe }) => {
+        addRecipe: async (root, { name, category, description, instructions, userID }, { Recipe }) => {
             // create recipe, save and return it
             const newRecipe = await new Recipe({
                 name,
                 category,
                 description,
-                instructions
+                instructions,
+                user: userID
             }).save()
             return newRecipe
         },
-        loginUser: async (root, { username, password }, { User }) => {
+        loginUser: async (root, { username, password }, { User, currentUser }) => {
             // find user
             const user = await User.findOne({ username: username })
 
@@ -31,7 +43,9 @@ export const resolvers = {
             if (!validPassword) throw new Error('Incorrect password')
 
             // return valid token if correct credentials
-            return ({ token: createJWT(user) })
+            return ({
+                token: createJWT(user),
+            })
         },
         signupUser: async (root, { username, password, email }, { User }) => {
             // find user
