@@ -13,9 +13,6 @@ export default async function (token) {
         // check token is still valid
         const validToken = await jwt.verify(token, getSecretKey());
 
-        // TODO: check expiration time on token
-        // if expiration time is less than half, send refreshed token back
-
         // get user from database from valid token
         const user = User.findOne({ username: validToken.data.username })
         return user

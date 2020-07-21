@@ -3,7 +3,7 @@ const { gql } = apollo;
 
 export const typeDefs = gql`
     type Recipe {
-        _id: ID
+        _id: ID!
         name: String!
         category: String!
         description: String!
@@ -30,6 +30,7 @@ export const typeDefs = gql`
         getAllRecipes: [Recipe]
         getRecipe(id:ID!): Recipe
         getUser(token: String!): User
+        recipeSearch(searchTerm:String): [Recipe]
     }
 
     type Mutation {
@@ -38,6 +39,16 @@ export const typeDefs = gql`
             category: String!
             description: String!
             instructions: String!
+        ) : Recipe
+
+        resetLikes : [Recipe]
+
+        addLike(
+            id: ID!
+        ) : Recipe
+        
+        removeLike(
+            id: ID!
         ) : Recipe
 
         signupUser(

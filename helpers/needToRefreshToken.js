@@ -1,6 +1,12 @@
 import jwt from 'jsonwebtoken'
 import getSecretKey from './getSecretKey.js'
 
+/**
+ * @function needToRefreshToken | Used to check if the token is older than half its expirey time
+ * @param {String} token | Token from local strorage
+ * @returns {Boolean} | true or false if token is older than half expirey time
+ */
+
 export default async function needToRefreshToken(token) {
     try {
         const validToken = await jwt.verify(token, getSecretKey())

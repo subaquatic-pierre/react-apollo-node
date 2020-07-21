@@ -22,6 +22,7 @@
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.23",
+    "react-test-renderer": "^16.13.1",
     "waait": "^1.0.5"
   },
   "devDependencies": {
