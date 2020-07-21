@@ -13,12 +13,14 @@ export const typeDefs = gql`
         username: String
     }
 
+    scalar Date
+
     type User {
         _id: ID
         username: String! 
         password: String!
         email: String!
-        joinDate: String!
+        joinDate: Date!
         favourites: [Recipe]
     }
 
