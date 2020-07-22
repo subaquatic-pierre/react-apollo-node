@@ -4,6 +4,23 @@ import getUser from '../helpers/getUser.js';
 
 export const resolvers = {
     Query: {
+        getProfile: async (root, { token }, { User, currentUser, Recipe }) => {
+            // TODO: Change user to `currentUser` only for dev purposes refetch user
+            // const checkUser = await getUser(token)
+            if (!currentUser) throw new Error('No user logged in')
+
+            const createdRecipes = await Recipe.find({ username: currentUser.username })
+
+            // init empty array, push all user likes to array
+            const favRecipes = []
+            await currentUser.favourites.forEach(recipe => {
+                const DBrecipe = Recipe.findOne({ _id: recipe })
+                favRecipes.push(DBrecipe)
+            })
+
+            // return favourites and user profile
+            return ({ user: currentUser, favRecipes: favRecipes, createdRecipes: createdRecipes })
+        },
         getAllRecipes: async (root, args, { Recipe }) => {
             const allRecipes = await Recipe.find()
                 .populate('user').sort({ createdDate: 'descending' })
@@ -44,9 +61,14 @@ export const resolvers = {
         }
     },
     Mutation: {
+        deleteRecipe: async (root, { id }, { Recipe }) => {
+            console.log(id)
+            // const recipe = await Recipe.findOneAndDelete({ _id: id })
+            const recipe = await Recipe.findOne({ _id: id })
+            return recipe
+        },
         resetLikes: async (root, args, { Recipe }) => {
             const recipes = await Recipe.find()
-
             recipes.forEach(recipe => {
                 recipe.likes = 0
                 recipe.save()
@@ -64,7 +86,7 @@ export const resolvers = {
                 category,
                 description,
                 instructions,
-                username: user.username
+                username: currentUser.username
             }).save()
 
             return newRecipe

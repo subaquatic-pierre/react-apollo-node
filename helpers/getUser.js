@@ -14,7 +14,7 @@ export default async function (token) {
         const validToken = await jwt.verify(token, getSecretKey());
 
         // get user from database from valid token
-        const user = User.findOne({ username: validToken.data.username })
+        const user = (await User.findOne({ username: validToken.data.username })).populate({ path: 'favourites' })
         return user
     } catch (err) {
         // if token is expired, return expired
