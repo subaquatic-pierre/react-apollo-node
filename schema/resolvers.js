@@ -9,7 +9,7 @@ export const resolvers = {
             // const checkUser = await getUser(token)
             if (!currentUser) throw new Error('No user logged in')
 
-            const createdRecipes = await Recipe.find({ username: currentUser.username })
+            const createdRecipes = await Recipe.find({ username: currentUser.username }).sort({ createdDate: 'descending' })
 
             // init empty array, push all user likes to array
             const favRecipes = []
@@ -61,10 +61,15 @@ export const resolvers = {
         }
     },
     Mutation: {
-        deleteRecipe: async (root, { id }, { Recipe }) => {
-            console.log(id)
-            // const recipe = await Recipe.findOneAndDelete({ _id: id })
-            const recipe = await Recipe.findOne({ _id: id })
+        deleteRecipe: async (root, { id }, { Recipe, currentUser, User }) => {
+
+            const recipe = await Recipe.findOneAndDelete({ _id: id })
+            // find user and update likes array, remove like from array
+
+            await User.findOneAndUpdate({ username: currentUser.username }, { $pullAll: { favourites: [id] } })
+            const user = await User.findOne({ username: currentUser.username })
+
+            // const recipe = await Recipe.findOne({ _id: id })
             return recipe
         },
         resetLikes: async (root, args, { Recipe }) => {
@@ -99,6 +104,7 @@ export const resolvers = {
             const recipe = await Recipe.findOne({ _id: id })
             recipe.likes += 1
             recipe.save()
+
 
             // find and add to user likes array
             await User.findOneAndUpdate({ username: currentUser.username }, { $addToSet: { favourites: id } })
