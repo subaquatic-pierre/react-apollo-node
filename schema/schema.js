@@ -1,6 +1,7 @@
 import apollo from 'apollo-server'
 const { gql } = apollo;
 
+// this is great
 export const typeDefs = gql`
     type Recipe {
         _id: ID!
