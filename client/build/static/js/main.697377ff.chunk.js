@@ -1,0 +1,2 @@
+(this.webpackJsonpclient=this.webpackJsonpclient||[]).push([[0],{19:function(e,t,n){e.exports=n(28)},28:function(e,t,n){"use strict";n.r(t);var l=n(4),a=n.n(l),c=n(13),r=n.n(c),o=n(18),i=n(30),u=new o.a({uri:"http://localhost:4000/"});var s=function(){return a.a.createElement(i.a,{client:u},a.a.createElement("div",null,a.a.createElement("h1",null,"React Apollo Node")))};r.a.render(a.a.createElement(a.a.StrictMode,null,a.a.createElement(s,null)),document.getElementById("root"))}},[[19,1,2]]]);
+//# sourceMappingURL=main.697377ff.chunk.js.map

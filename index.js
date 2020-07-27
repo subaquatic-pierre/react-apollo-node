@@ -16,6 +16,7 @@ mongoose.connect(DB_URI, {
 }
 ).then(() => console.log(`Connected to database at ${DB_URI}`)).catch(err => console.log(err));
 
+// Add a load of comments
 server.listen().then(() => {
     console.log('🚀  Server ready at http://localhost:4000/')
 })
