@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 import {
     makeStyles,
     Paper,
@@ -53,7 +53,7 @@ const initialState = {
 const AddRecipe = () => {
     const [state, setState] = useState({ ...initialState })
     const [error, setError] = useState(false)
-    const history = useHistory()
+    const store = useApolloClient()
     const classes = useStyles()
     const [addRecipe] = useMutation(ADD_RECIPE)
 
@@ -83,7 +83,9 @@ const AddRecipe = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (!validateForm()) return
-
+        // TODO: Set error state on form, invlaid fields
+        const profile = getProfile(store)
+        if (!profile) return <Redirect to='/' />
         // submit request to server with state info from form
         addRecipe({
             variables: {
@@ -95,7 +97,6 @@ const AddRecipe = () => {
             // optomistic update to the cache
             update: (store, { data: { addRecipe } }) => {
                 addRecipeToCache(store, addRecipe)
-                const profile = getProfile(store)
                 if (profile) {
                     const createdRecipes = profile.createdRecipes
                     // get user created recipes and update cache
@@ -105,7 +106,7 @@ const AddRecipe = () => {
             }
         })
             .then(res => {
-                history.push('/')
+                return <Redirect to='/' />
             }).catch(err => {
                 console.log(err)
             })
