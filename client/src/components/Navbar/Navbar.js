@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';

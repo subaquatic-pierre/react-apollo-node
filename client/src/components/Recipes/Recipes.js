@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery, useApolloClient } from '@apollo/react-hooks';
+import { useQuery, useApolloClient } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core'
 import {

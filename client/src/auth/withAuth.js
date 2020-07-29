@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { Redirect } from 'react-router-dom'
 
 import { GET_USER } from '../queries/getUser';

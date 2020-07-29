@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { CssBaseline, Container, makeStyles } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core';
 

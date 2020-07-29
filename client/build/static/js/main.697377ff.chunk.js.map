@@ -1,1 +1,25 @@
-{"version":3,"sources":["App.js","index.js"],"names":["client","ApolloClient","uri","App","ReactDOM","render","StrictMode","document","getElementById"],"mappings":"iMAIMA,EAAS,IAAIC,IAAa,CAC9BC,IAAK,2BAaQC,MAVf,WACE,OACE,kBAAC,IAAD,CAAgBH,OAAQA,GACtB,6BACE,oDCRRI,IAASC,OACP,kBAAC,IAAMC,WAAP,KACE,kBAAC,EAAD,OAEFC,SAASC,eAAe,W","file":"static/js/main.697377ff.chunk.js","sourcesContent":["import React from 'react';\nimport ApolloClient from 'apollo-boost';\nimport { ApolloProvider } from '@apollo/react-hooks';\n\nconst client = new ApolloClient({\n  uri: 'http://localhost:4000/',\n});\n\nfunction App() {\n  return (\n    <ApolloProvider client={client}>\n      <div>\n        <h1>React Apollo Node</h1>\n      </div>\n    </ApolloProvider>\n  );\n}\n\nexport default App;\n","import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './App';\n\nReactDOM.render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>,\n  document.getElementById('root')\n);\n"],"sourceRoot":""}
+{
+  "version": 3,
+  "sources": [
+    "App.js",
+    "index.js"
+  ],
+  "names": [
+    "client",
+    "ApolloClient",
+    "uri",
+    "App",
+    "ReactDOM",
+    "render",
+    "StrictMode",
+    "document",
+    "getElementById"
+  ],
+  "mappings": "iMAIMA,EAAS,IAAIC,IAAa,CAC9BC,IAAK,2BAaQC,MAVf,WACE,OACE,kBAAC,IAAD,CAAgBH,OAAQA,GACtB,6BACE,oDCRRI,IAASC,OACP,kBAAC,IAAMC,WAAP,KACE,kBAAC,EAAD,OAEFC,SAASC,eAAe,W",
+  "file": "static/js/main.697377ff.chunk.js",
+  "sourcesContent": [
+    "import React from 'react';\nimport ApolloClient from 'apollo-boost';\nimport { ApolloProvider } from '@apollo/client';\n\nconst client = new ApolloClient({\n  uri: 'http://localhost:4000/',\n});\n\nfunction App() {\n  return (\n    <ApolloProvider client={client}>\n      <div>\n        <h1>React Apollo Node</h1>\n      </div>\n    </ApolloProvider>\n  );\n}\n\nexport default App;\n",
+    "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './App';\n\nReactDOM.render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>,\n  document.getElementById('root')\n);\n"
+  ],
+  "sourceRoot": ""
+}

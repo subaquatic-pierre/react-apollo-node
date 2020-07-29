@@ -8,21 +8,6 @@ it('renders without error', () => {
     expect(component.length).toBeGreaterThan(0)
 })
 
-it('redirects to home if user not logged in', () => {
-    const unauthorizedMock = {
-        request: {
-            query: GET_USER,
-            variables: {
-                token: 'token'
-            }
-        },
-        result: {
-            data: null
-        }
-    }
-    const component = mountSetup(AddRecipe)
-})
-
 it('adds a new recipe on submit', () => {
 
 })
