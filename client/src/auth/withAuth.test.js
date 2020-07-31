@@ -51,24 +51,10 @@ const unauthorizedMocks = [
 //     },
 // ]
 
-describe('unauthorized tests', () => {
-    let component;
-    beforeEach(() => {
-        component = mountSetup(withAuth(Profile), unauthorizedMocks)
-    })
-
-    it('redirect when user not logged in', async () => {
-        // component = mountSetup(withAuth(Profile), unauthorizedMocks)
-        await wait(0)
-        console.log(component.debug())
-    })
+it('redirect when user not logged in', async () => {
+    const component = mountSetup(withAuth(Profile), unauthorizedMocks)
+    await wait(0)
 })
-
-// it('redirect when user not logged in', async () => {
-//     const component = mountSetup(withAuth(Profile), unauthorizedMocks)
-//     await wait(0)
-//     console.log(component.debug())
-// })
 
 // it('renders profile page when user is logged in', async () => {
 //     const component = mountSetup(withAuth(Profile), authorizedMocks)
