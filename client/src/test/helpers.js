@@ -1,10 +1,12 @@
 import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
-import { mount, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme'
 
 export const mountSetup = (Component, mocks = [], props = {}) => {
     return mount(
-        <MockedProvider client={mocks} addTypename={false}>
+        <MockedProvider
+            mocks={mocks}
+            addTypename={false}>
             <Component />
         </MockedProvider>
     )

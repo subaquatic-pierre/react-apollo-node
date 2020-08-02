@@ -1,13 +1,10 @@
 import React from 'react';
 import Search from './Search';
-import { mountSetup, shallowSetup } from '../../test/helpers'
-
 import { RECIPE_SEARCH } from '../../queries/recipeSearch'
-import { act } from 'react-dom/test-utils';
+import { render, fireEvent } from '../../test/testUtils'
 
 it('renders without error', () => {
-    const wrapper = shallowSetup(Search)
-    expect(wrapper.length).toBeGreaterThan(0)
+    const wrapper = render(<Search />)
 })
 
 const mocks = [
@@ -29,14 +26,13 @@ const mocks = [
     }
 ]
 
-it('renders spinner if loading', async () => {
-    const wrapper = mountSetup(Search, mocks)
+it('renders spinner if loading', () => {
 
-    await act(async () => {
-        const input = wrapper.find('input')
-        await input.simulate('change', { event: { target: { value: 'recipe' } } })
-    })
-    console.log(wrapper.debug())
+
+    const { container, getByPlaceholderText, debug } = render(<Search />, mocks)
+    const inputNode = getByPlaceholderText('Enter search term')
+
+    // fireEvent.change(inputNode, { target: { value: 'r' } })
 })
 
 it('renders error if error', () => {

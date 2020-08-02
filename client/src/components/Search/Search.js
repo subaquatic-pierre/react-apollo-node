@@ -51,7 +51,12 @@ const Search = () => {
         {
             variables: { searchTerm: searchTerm },
             onCompleted: data => {
-                setSearchData(data.recipeSearch)
+                try {
+                    setSearchData(data.recipeSearch)
+                }
+                catch (err) {
+                    console.log('no data found')
+                }
             }
         })
     const classes = useStyles()
@@ -107,6 +112,7 @@ const Search = () => {
                     <TextField
                         name="search"
                         label="Enter search term"
+                        placeholder='Enter search term'
                         type='search'
                         value={searchTerm}
                         onChange={(event) => handleChange(event)}
