@@ -107,8 +107,6 @@ const Recipe = () => {
         setLiked(checkIfLiked)
     }, [user, liked, recipeId])
 
-    console.log(user)
-
     return (
         <Card className={classes.card}>
             <CardContent>
