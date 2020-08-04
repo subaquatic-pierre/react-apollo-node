@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Recipes from './Recipes';
-import { render, fireEvent, waitFor, waitForDomChange } from '../../test/testUtils'
+import { render, waitForDomChange } from '../../test/testUtils'
 import { GET_ALL_RECIPES } from '../../queries/allRecipes';
 
 const mocks = [
@@ -36,47 +36,20 @@ const mocks = [
     },
 ]
 
-const resolvers = {
-    Query: () => ({
-        getAllRecipes: () => (
-            [
-                {
-                    _id: 'this',
-                    name: 'first',
-                    category: 'first',
-                    description: 'first',
-                    username: 'first',
-                    likes: 'first',
-                    instructions: ''
-                },
-                {
-                    _id: '',
-                    name: 'second',
-                    category: 'second',
-                    description: 'second',
-                    username: 'second',
-                    likes: 'second',
-                    instructions: 'second'
-                },
-            ]
-        )
-    })
-}
-
 it('renders without error', async () => {
-    const { debug } = render(<Recipes />, mocks, resolvers)
+    const { debug } = render(<Recipes />, mocks)
     await waitForDomChange()
     // debug()
 })
 
-it('renders spinner if loading', () => {
+// it('renders spinner if loading', () => {
 
-})
+// })
 
-it('renders error if error', () => {
+// it('renders error if error', () => {
 
-})
+// })
 
-it('renders single recipe when recipe clicked on', () => {
+// it('renders single recipe when recipe clicked on', () => {
 
-})
+// })

@@ -107,6 +107,8 @@ const Recipe = () => {
         setLiked(checkIfLiked)
     }, [user, liked, recipeId])
 
+    console.log(user)
+
     return (
         <Card className={classes.card}>
             <CardContent>
@@ -117,10 +119,10 @@ const Recipe = () => {
                     :
                     <>
                         <div className={classes.header}>
-                            <Typography variant="h5" component="h2" >
+                            <Typography aria-label='recipe-header' variant="h5" component="h2" >
                                 {data.getRecipe.name}
                             </Typography>
-                            <Typography className={classes.likes}>
+                            <Typography aria-label='recipe-likes' className={classes.likes}>
                                 Likes: {data.getRecipe.likes}
                             </Typography>
                         </div>
@@ -148,6 +150,7 @@ const Recipe = () => {
                                 <Button
                                     variant='contained'
                                     color='primary'
+                                    aria-label='like-button'
                                     onClick={(id) => handleLikeClick(recipeId)}>
                                     {liked ? <span>Liked</span> : <span>Like</span>}
                                 </Button>
