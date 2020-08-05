@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Profile from './Profile';
+import { render } from '../../../tests/utils.js'
+import Profile from '../Profile';
 
 it('renders without error', () => {
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Layout from './Layout'
+import { render } from '../../../tests/utils.js'
+import Layout from '../Layout'
 
 it('renders without error', () => {
 

@@ -9,7 +9,6 @@ import {
     List,
     ListItem,
     ListItemText,
-    CircularProgress,
     Button
 } from '@material-ui/core';
 
@@ -19,6 +18,8 @@ import { ADD_LIKE } from '../../mutations/addLike'
 import updateFavs from '../../updateCache/updateUserFavs';
 import { removeRecipe, addRecipe, checkRecipeLiked, getFavourites } from '../../updateCache/helpers';
 import getUser from '../../auth/getUser'
+import Loading from '../Loading'
+import Error from '../Error'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -57,12 +58,9 @@ const Recipe = () => {
     const recipeId = params.id
 
     // make query to get recipe
-    const { data, loading } = useQuery(GET_RECIPE,
+    const { data, error, loading } = useQuery(GET_RECIPE,
         {
             variables: { id: recipeId },
-            onError: (err) => {
-                console.log(err)
-            },
         }
     )
 
@@ -107,54 +105,56 @@ const Recipe = () => {
         setLiked(checkIfLiked)
     }, [user, liked, recipeId])
 
+
     return (
         <Card className={classes.card}>
             <CardContent>
                 {loading ?
-                    (<div className={classes.loading}>
-                        <CircularProgress />
-                    </div>)
+                    <Loading />
                     :
-                    <>
-                        <div className={classes.header}>
-                            <Typography aria-label='recipe-header' variant="h5" component="h2" >
-                                {data.getRecipe.name}
-                            </Typography>
-                            <Typography aria-label='recipe-likes' className={classes.likes}>
-                                Likes: {data.getRecipe.likes}
-                            </Typography>
-                        </div>
-                        <List>
-                            <ListItem>
-                                <ListItemText
-                                    primary="Category"
-                                    secondary={data.getRecipe.category}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText
-                                    primary="Description"
-                                    secondary={data.getRecipe.description}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText
-                                    primary="Instructions"
-                                    secondary={data.getRecipe.instructions} />
-                            </ListItem>
-                        </List>
-                        {user &&
-                            <>
-                                <Button
-                                    variant='contained'
-                                    color='primary'
-                                    aria-label='like-button'
-                                    onClick={(id) => handleLikeClick(recipeId)}>
-                                    {liked ? <span>Liked</span> : <span>Like</span>}
-                                </Button>
-                            </>
-                        }
-                    </>
+                    error ?
+                        <Error message={error.message} />
+                        :
+                        <>
+                            <div className={classes.header}>
+                                <Typography aria-label='recipe-header' variant="h5" component="h2" >
+                                    {data.getRecipe.name}
+                                </Typography>
+                                <Typography aria-label='recipe-likes' className={classes.likes}>
+                                    Likes: {data.getRecipe.likes}
+                                </Typography>
+                            </div>
+                            <List>
+                                <ListItem>
+                                    <ListItemText
+                                        primary="Category"
+                                        secondary={data.getRecipe.category}
+                                    />
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemText
+                                        primary="Description"
+                                        secondary={data.getRecipe.description}
+                                    />
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemText
+                                        primary="Instructions"
+                                        secondary={data.getRecipe.instructions} />
+                                </ListItem>
+                            </List>
+                            {user &&
+                                <>
+                                    <Button
+                                        variant='contained'
+                                        color='primary'
+                                        aria-label='like-button'
+                                        onClick={(id) => handleLikeClick(recipeId)}>
+                                        {liked ? <span>Liked</span> : <span>Like</span>}
+                                    </Button>
+                                </>
+                            }
+                        </>
                 }
             </CardContent>
         </Card>

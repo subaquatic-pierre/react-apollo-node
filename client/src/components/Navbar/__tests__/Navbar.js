@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Navbar from './Navbar';
+import { render } from '../../../tests/utils.js'
+import Navbar from '../Navbar';
 
 it('renders without error', () => {
 

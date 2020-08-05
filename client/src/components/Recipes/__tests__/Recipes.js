@@ -1,8 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Recipes from './Recipes';
-import { render, waitForDomChange } from '../../test/testUtils'
-import { GET_ALL_RECIPES } from '../../queries/allRecipes';
+import Recipes from '../Recipes';
+import { render } from '../../../tests/utils'
+import { GET_ALL_RECIPES } from '../../../queries/allRecipes';
 
 const mocks = [
     {
@@ -38,7 +37,6 @@ const mocks = [
 
 it('renders without error', async () => {
     const { debug } = render(<Recipes />, mocks)
-    await waitForDomChange()
     // debug()
 })
 

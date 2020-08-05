@@ -9,6 +9,7 @@ import AddRecipe from './components/AddRecipe';
 import Profile from './components/Profile';
 import Recipe from './components/Recipe';
 import withAuth from './auth/withAuth'
+import authRedirect from './auth/authRedirect'
 
 const BaseRouter = () => (
     <Switch>

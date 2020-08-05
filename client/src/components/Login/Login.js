@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
+import { Redirect } from 'react-router-dom'
 import {
     makeStyles,
     Paper,
@@ -9,6 +10,7 @@ import {
 } from '@material-ui/core'
 
 import { LOGIN_USER } from '../../mutations/loginUser'
+import { GET_PROFILE } from '../../queries/getProfile';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -39,7 +41,7 @@ const Login = () => {
     const [state, setState] = useState({ ...initialState })
     const classes = useStyles()
     const [loginUser] = useMutation(LOGIN_USER)
-
+    const client = useApolloClient()
     // handle change of all input box'x, update the state
     const handleChange = ({ target }) => {
         const { name, value } = target
@@ -68,13 +70,18 @@ const Login = () => {
 
         // submit request to server with state info from from
         loginUser({ variables: { ...state } })
-            .then(res => {
+            .then(async res => {
                 localStorage.setItem('token', res.data.loginUser.token)
+                await client.query({
+                    query: GET_PROFILE,
+                    variables: { token: res.data.loginUser.token }
+                })
                 window.location.assign('/')
             }).catch(err => {
                 console.log(err)
             })
     }
+
 
     return (
         <Paper className={classes.paper}>

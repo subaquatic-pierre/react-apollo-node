@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Signup from './Signup';
+import { render } from '../../../tests/utils.js'
+import Signup from '../Signup';
 
 it('renders without error', () => {
 

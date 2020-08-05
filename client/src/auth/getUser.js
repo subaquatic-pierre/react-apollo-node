@@ -1,6 +1,7 @@
 import { GET_USER } from '../queries/getUser';
+import { getToken } from '../utils/getToken';
 
-const token = localStorage.getItem('token');
+const token = getToken()
 
 const getUser = (client) => {
     try {

@@ -18,7 +18,7 @@ const Loading = () => {
     const classes = useStyles()
     return (
         <Card>
-            <div className={classes.loading}>
+            <div role='loading' className={classes.loading}>
                 <CircularProgress />
             </div>
         </Card>

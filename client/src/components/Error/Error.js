@@ -17,7 +17,7 @@ const Error = ({ message }) => {
     const classes = useStyles()
     return (
         <Card>
-            <div className={classes.error}>
+            <div role='error' className={classes.error}>
                 <h4>Error: </h4>
                 <p> {message}</p>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
-import Search from './Search';
-import { RECIPE_SEARCH } from '../../queries/recipeSearch'
-import { render, fireEvent } from '../../test/testUtils'
+import Search from '../Search';
+import { RECIPE_SEARCH } from '../../../queries/recipeSearch'
+import { render, fireEvent } from '../../../tests/utils'
 
 it('renders without error', () => {
     const wrapper = render(<Search />)

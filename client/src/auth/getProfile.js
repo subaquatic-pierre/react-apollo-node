@@ -1,8 +1,9 @@
 import { GET_PROFILE } from '../queries/getProfile';
+import { getToken } from '../utils/getToken';
 
-const token = localStorage.getItem('token');
+const token = getToken()
 
-const getUser = (client) => {
+const getProfile = (client) => {
     try {
         const profileData = client.readQuery({
             query: GET_PROFILE,
@@ -14,4 +15,4 @@ const getUser = (client) => {
     }
 }
 
-export default getUser
+export default getProfile
