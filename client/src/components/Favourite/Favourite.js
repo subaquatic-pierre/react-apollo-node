@@ -56,7 +56,7 @@ const Favourite = ({ user, recipe }) => {
     }
 
     return (
-        <Card className={classes.card}>
+        <Card data-testid='user-favourites' className={classes.card}>
             <CardContent>
                 <div className={classes.header}>
                     <Link to={`/recipe/${recipe._id}`}>
@@ -78,6 +78,7 @@ const Favourite = ({ user, recipe }) => {
                 <Button
                     color='default'
                     variant='contained'
+                    aria-label='unlike-button'
                     onClick={() => handleUnlikeClick(recipe._id)}
                     className={classes.button}>
                     Unlike

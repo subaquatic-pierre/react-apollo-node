@@ -46,10 +46,11 @@ const formatDate = date => {
     return `${newDate} at ${newTime}`
 }
 
-const token = localStorage.getItem('token')
-
 const Profile = () => {
     const classes = useStyles()
+
+    const token = localStorage.getItem('token')
+
 
     const { data, loading, error } = useQuery(GET_PROFILE, { variables: { token } })
 
@@ -57,7 +58,6 @@ const Profile = () => {
     if (error) return <Error message={error.message} />
 
     if (data.getProfile) {
-        const profile = data.getProfile
         const user = data.getProfile.user
         const favRecipes = data.getProfile.favRecipes
         const createdRecipes = data.getProfile.createdRecipes

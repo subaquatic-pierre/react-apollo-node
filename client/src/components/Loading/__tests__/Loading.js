@@ -1,7 +1,8 @@
 import React from 'react';
 import Loading from '../Loading';
-import { render } from '../../../tests/utils.js'
+import { render } from '../../../test/utils.js'
 
 it('renders without error', () => {
-    const wrapper = render(<Loading />)
+    const { getByRole } = render(<Loading />)
+    getByRole('loading')
 })

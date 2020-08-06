@@ -89,10 +89,6 @@ const Recipes = () => {
 
     return (
         <>
-            {loading &&
-                (<div className={classes.loading}>
-                    <CircularProgress />
-                </div>)}
             {
                 data &&
                 data.getAllRecipes.map(recipe => (

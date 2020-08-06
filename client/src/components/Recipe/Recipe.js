@@ -105,56 +105,53 @@ const Recipe = () => {
         setLiked(checkIfLiked)
     }, [user, liked, recipeId])
 
+    if (loading) return <Loading />
+    if (error) return <Error message={error.message} />
 
     return (
         <Card className={classes.card}>
             <CardContent>
-                {loading ?
-                    <Loading />
-                    :
-                    error ?
-                        <Error message={error.message} />
-                        :
-                        <>
-                            <div className={classes.header}>
-                                <Typography aria-label='recipe-header' variant="h5" component="h2" >
-                                    {data.getRecipe.name}
-                                </Typography>
-                                <Typography aria-label='recipe-likes' className={classes.likes}>
-                                    Likes: {data.getRecipe.likes}
-                                </Typography>
-                            </div>
-                            <List>
-                                <ListItem>
-                                    <ListItemText
-                                        primary="Category"
-                                        secondary={data.getRecipe.category}
-                                    />
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText
-                                        primary="Description"
-                                        secondary={data.getRecipe.description}
-                                    />
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText
-                                        primary="Instructions"
-                                        secondary={data.getRecipe.instructions} />
-                                </ListItem>
-                            </List>
-                            {user &&
-                                <>
-                                    <Button
-                                        variant='contained'
-                                        color='primary'
-                                        aria-label='like-button'
-                                        onClick={(id) => handleLikeClick(recipeId)}>
-                                        {liked ? <span>Liked</span> : <span>Like</span>}
-                                    </Button>
-                                </>
-                            }
-                        </>
+                {data &&
+                    <>
+                        <div className={classes.header}>
+                            <Typography aria-label='recipe-header' variant="h5" component="h2" >
+                                {data.getRecipe.name}
+                            </Typography>
+                            <Typography aria-label='recipe-likes' className={classes.likes}>
+                                Likes: {data.getRecipe.likes}
+                            </Typography>
+                        </div>
+                        <List>
+                            <ListItem>
+                                <ListItemText
+                                    primary="Category"
+                                    secondary={data.getRecipe.category}
+                                />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText
+                                    primary="Description"
+                                    secondary={data.getRecipe.description}
+                                />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText
+                                    primary="Instructions"
+                                    secondary={data.getRecipe.instructions} />
+                            </ListItem>
+                        </List>
+                        {user &&
+                            <>
+                                <Button
+                                    variant='contained'
+                                    color='primary'
+                                    aria-label='like-button'
+                                    onClick={(id) => handleLikeClick(recipeId)}>
+                                    {liked ? <span>Liked</span> : <span>Like</span>}
+                                </Button>
+                            </>
+                        }
+                    </>
                 }
             </CardContent>
         </Card>

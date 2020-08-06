@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from '../Search';
 import { RECIPE_SEARCH } from '../../../queries/recipeSearch'
-import { render, fireEvent } from '../../../tests/utils'
+import { render, fireEvent } from '../../../test/utils'
 
 it('renders without error', () => {
     const wrapper = render(<Search />)
@@ -29,7 +29,7 @@ const mocks = [
 it('renders spinner if loading', () => {
 
 
-    const { container, getByPlaceholderText, debug } = render(<Search />, mocks)
+    const { container, getByPlaceholderText, debug } = render(<Search />)
     const inputNode = getByPlaceholderText('Enter search term')
 
     // fireEvent.change(inputNode, { target: { value: 'r' } })

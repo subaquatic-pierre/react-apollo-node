@@ -108,7 +108,7 @@ const UserRecipes = ({ recipe, createdRecipes, user }) => {
     }
 
     return (
-        <Card className={classes.card}>
+        <Card data-testid='user-recipe' className={classes.card}>
             <CardContent>
                 <div className={classes.header}>
                     <Link to={`/recipe/${recipe._id}`}>

@@ -3,9 +3,10 @@ import { useQuery } from '@apollo/client';
 import { CssBaseline, Container, makeStyles } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core';
 
-
 import Navbar from '../Navbar';
-import Footer from '../Footer'
+import Footer from '../Footer';
+import Error from '../Error';
+import Loading from '../Loading'
 
 import theme from '../../theme'
 
@@ -20,16 +21,42 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+
+
 const Layout = ({ children }) => {
     const classes = useStyles()
 
     // get user data with token from local storage
-    const userData = useQuery(GET_USER, { variables: { token: token ? token : '' } })
+    const { data, loading, error } = useQuery(GET_USER, { variables: { token: token ? token : '' } })
 
-    if (userData.error) {
-        console.log(userData.error)
-        console.log(userData.loading)
-        console.log(userData.data)
+    if (error) {
+        return (
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Navbar />
+                <Container
+                    maxWidth='sm'
+                    className={classes.container}>
+                    <Error message={error.message} />
+                </Container>
+                <Footer />
+            </ThemeProvider>
+        )
+    }
+
+    if (loading) {
+        return (
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Navbar />
+                <Container
+                    maxWidth='sm'
+                    className={classes.container}>
+                    <Loading />
+                </Container>
+                <Footer />
+            </ThemeProvider>
+        )
     }
 
     return (

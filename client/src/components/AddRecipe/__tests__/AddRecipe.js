@@ -1,10 +1,8 @@
 import React from 'react';
 import AddRecipe from '../AddRecipe'
-import { Redirect as MockRedirect } from 'react-router-dom'
-import { render, fireEvent, wait } from '../../../tests/utils.js'
+import { render, fireEvent, wait } from '../../../test/utils.js'
 
-import { validateForm as mockValidateForm } from '../../../utils/addRecipeUtils'
-import { recipeVars, addRecipeMocks } from '../__mocks__/AddRecipe'
+import { validateRecipeForm as mockValidateRecipeForm } from '../../../utils/formUtils'
 import mockGetProfile from '../../../auth/getProfile'
 
 jest.mock('react-router-dom', () => ({
@@ -13,10 +11,10 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('../../../auth/getProfile')
-jest.mock('../../../utils/addRecipeUtils')
+jest.mock('../../../utils/formUtils')
 
 mockGetProfile.mockReturnValue(true)
-mockValidateForm.mockReturnValue(true)
+mockValidateRecipeForm.mockReturnValue(true)
 
 afterEach(() => {
     jest.clearAllMocks()
@@ -27,9 +25,9 @@ test('renders correctly', () => {
 })
 
 test('try', () => {
-    const { container, getByRole } = render(<AddRecipe />, addRecipeMocks)
+    const { container, getByRole } = render(<AddRecipe />)
     const submitButton = container.querySelector("button[type='submit']")
-    fireEvent.click(submitButton)
+    // fireEvent.click(submitButton)
 })
 
 // it('adds a new recipe on submit', async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Error from '../Error';
-import { render } from '../../../tests/utils.js'
+import { render } from '../../../test/utils.js'
 
 const props = {
     message: 'There was an error'

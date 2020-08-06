@@ -13,12 +13,12 @@ import {
     MenuItem
 } from '@material-ui/core'
 
+import { handleInputChange, validateRecipeForm } from '../../utils/formUtils'
 import updateUserCreatedRecipes from '../../updateCache/updateUserCreatedRecipes';
 import { addRecipe as addRecipeHelper } from '../../updateCache/helpers';
 import addRecipeToCache from '../../updateCache/addRecipeToCache'
 import { ADD_RECIPE } from '../../mutations/addRecipe'
 import getProfile from '../../auth/getProfile'
-import { validateForm } from '../../utils/addRecipeUtils'
 import { GET_PROFILE } from '../../queries/getProfile';
 import { getToken } from '../../utils/getToken';
 
@@ -59,21 +59,10 @@ const AddRecipe = () => {
     const classes = useStyles()
     const [addRecipe] = useMutation(ADD_RECIPE)
 
-    // handle change of all input box'x, update the state
-    const handleChange = ({ target }) => {
-        const { name, value } = target
-        setState(state => ({
-            ...state,
-            [name]: value,
-        })
-        )
-        setError(false)
-    }
-
     // handle submit button click
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (!validateForm(setError, state)) return
+        if (!validateRecipeForm(setError, state)) return
         // TODO: Set error state on form, invlaid fields
         const profile = getProfile(client)
         // if (!profile) window.location.assing('/')
@@ -98,7 +87,7 @@ const AddRecipe = () => {
             }
         })
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 // return window.location.assign(`/recipe/${res.data.addRecipe._id}`)
             }).catch(err => {
                 console.log(err)
@@ -133,7 +122,7 @@ const AddRecipe = () => {
                     aria-label='name'
                     label="Recipe Name"
                     value={state.name}
-                    onChange={(event) => handleChange(event)}
+                    onChange={(event) => handleInputChange(event, setState, setError)}
                     variant="outlined"
                 />
                 <TextField
@@ -141,7 +130,7 @@ const AddRecipe = () => {
                     aria-label='description'
                     label="Description"
                     value={state.description}
-                    onChange={(event) => handleChange(event)}
+                    onChange={(event) => handleInputChange(event, setState, setError)}
                     variant="outlined"
                     multiline
                     rows={2}
@@ -153,7 +142,7 @@ const AddRecipe = () => {
                         name='category'
                         aria-label='category-select'
                         value={state.category}
-                        onChange={handleChange}
+                        onChange={(event) => handleInputChange(event, setState, setError)}
                         label="Category"
                     >
                         <MenuItem value='Breakfast'>Breakfast</MenuItem>
@@ -167,7 +156,7 @@ const AddRecipe = () => {
                     aria-label='instructions'
                     label="Instructions"
                     value={state.instructions}
-                    onChange={(event) => handleChange(event)}
+                    onChange={(event) => handleInputChange(event, setState, setError)}
                     variant="outlined"
                     multiline
                     rows={10}

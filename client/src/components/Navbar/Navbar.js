@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { MenuItem } from '@material-ui/core';
 
 import getUser from '../../auth/getUser';
+import { siteTitle } from '../../utils/siteConfig';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,34 +32,36 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+
 const Navbar = () => {
     const classes = useStyles();
     const client = useApolloClient()
     const user = getUser(client)
 
-    const history = useHistory()
-
     const handleLogout = () => {
         localStorage.removeItem('token')
-        window.location.assign('/')
+        window.location.replace('/')
     }
 
+    const history = useHistory()
+
     const AuthNav = () => (
-        <>
+        <div aria-label='auth-nav'>
             <MenuItem onClick={() => { history.push('/add-recipe') }}>
                 Add Recipe
             </MenuItem>
             <MenuItem onClick={() => { history.push('/profile') }}>
                 {user.username.toUpperCase()}
             </MenuItem>
-            <MenuItem onClick={handleLogout}>
+            <MenuItem name='logout-button' onClick={handleLogout}>
                 Logout
             </MenuItem>
-        </>
+        </div >
     )
 
     const Nav = () => (
-        <>
+        <div aria-label='unauth-nav'>
             <Link to='/login'>
                 <MenuItem color='inherit'>
                     Login
@@ -69,11 +72,11 @@ const Navbar = () => {
                     Signup
                 </MenuItem>
             </Link>
-        </>
+        </div >
     )
 
     return (
-        <div className={classes.root}>
+        <div data-testid='navbar' className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
                     <Link
@@ -82,8 +85,8 @@ const Navbar = () => {
                     >
                         <Button color='inherit'>
                             <Typography component='h2' variant='h6'>
-                                React Apollo Nodes
-                                </Typography>
+                                {siteTitle}
+                            </Typography>
                         </Button>
                     </Link>
 

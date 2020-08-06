@@ -9,6 +9,7 @@ import {
     TextField
 } from '@material-ui/core'
 
+import { handleInputChange, handleLoginSubmit } from '../../utils/formUtils'
 import { LOGIN_USER } from '../../mutations/loginUser'
 import { GET_PROFILE } from '../../queries/getProfile';
 
@@ -39,49 +40,10 @@ const initialState = {
 
 const Login = () => {
     const [state, setState] = useState({ ...initialState })
+    const [error, setError] = useState(false)
     const classes = useStyles()
     const [loginUser] = useMutation(LOGIN_USER)
     const client = useApolloClient()
-    // handle change of all input box'x, update the state
-    const handleChange = ({ target }) => {
-        const { name, value } = target
-        setState(state => ({
-            ...state,
-            [name]: value
-        })
-        )
-    }
-
-    // ensure all fields filled in to enable button
-    const validateForm = () => {
-        const { username, password } = state
-        if (username && password) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    // handle submit button click
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        if (!validateForm()) return
-
-
-        // submit request to server with state info from from
-        loginUser({ variables: { ...state } })
-            .then(async res => {
-                localStorage.setItem('token', res.data.loginUser.token)
-                await client.query({
-                    query: GET_PROFILE,
-                    variables: { token: res.data.loginUser.token }
-                })
-                window.location.assign('/')
-            }).catch(err => {
-                console.log(err)
-            })
-    }
-
 
     return (
         <Paper className={classes.paper}>
@@ -98,14 +60,14 @@ const Login = () => {
                     name="username"
                     label="Username"
                     value={state.username}
-                    onChange={(event) => handleChange(event)}
+                    onChange={(event) => handleInputChange(event, setState, setError)}
                     variant="outlined"
                 />
                 <TextField
                     name="password"
                     label="Password"
                     value={state.password}
-                    onChange={(event) => handleChange(event)}
+                    onChange={(event) => handleInputChange(event, setState, setError)}
                     type="password"
                     autoComplete="current-password"
                     variant="outlined"
@@ -114,7 +76,7 @@ const Login = () => {
                     variant="contained"
                     color="primary"
                     className={classes.button}
-                    onClick={(event) => handleSubmit(event)}
+                    onClick={(event) => handleLoginSubmit(event, loginUser, state, client)}
                     type='submit'
                 >
                     Login
