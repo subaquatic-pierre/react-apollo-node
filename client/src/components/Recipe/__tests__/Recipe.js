@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Recipe from '../Recipe';
-import { render, wait, fireEvent } from '../../../test/utils'
+import { render, wait } from '../../../test/utils'
 import { recipe1, user } from '../../../test/__mocks__'
-import * as mockHelpers from '../../../updateCache/helpers'
 import mockGetUser from '../../../auth/getUser'
 
 jest.mock('../../../updateCache/updateUserFavs')
@@ -95,9 +94,3 @@ describe('basic rendering', () => {
         expect(await (await findByLabelText(/like-button/i)).textContent).toContain('Liked')
     })
 })
-
-
-
-
-
-
