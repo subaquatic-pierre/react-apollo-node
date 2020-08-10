@@ -38,12 +38,8 @@ it('renders error if error', async () => {
 })
 
 it('renders single recipe when recipe clicked on', async () => {
-    const { debug, findByText, getByText, getByRole, findByRole, container } = render(<Recipes />, resolvers)
-    const link = await findByRole('link', { name: recipe1.name })
-    const heading = getByText(recipe1.name)
-    console.log(heading)
-    console.log(link)
-    fireEvent.click(link)
+    const { findByText } = render(<Recipes />, resolvers)
+    const heading = await findByText(recipe1.name)
     fireEvent.click(heading)
-    debug()
+    expect(window.location.pathname).toContain(recipe1._id)
 })
