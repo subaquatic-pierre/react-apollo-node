@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Recipe from '../Recipe';
-import { render, wait } from '../../../test/utils'
+import { render, wait, fireEvent } from '../../../test/utils'
 import { recipe1, user } from '../../../test/__mocks__'
 import mockGetUser from '../../../auth/getUser'
 
@@ -80,17 +80,36 @@ describe('basic rendering', () => {
         await findByRole('error')
     })
 
-    it('shows `Like` on button if NOT already liked', async () => {
+    it('shows `Like` on button if NOT already liked, increases like count if `Like` button clicked', async () => {
         const { findByLabelText } = render(<Recipe />, customResolvers)
         user.favourites = [{ _id: '3', }, { _id: '2', }]
         mockGetUser.mockReturnValue(user)
-        expect(await (await findByLabelText(/like-button/i)).textContent).toContain('Like')
+        const likeButton = await findByLabelText(/like-button/i)
+        const numberOfLikes = await findByLabelText(/recipe-likes/i)
+
+        expect(numberOfLikes.textContent).toContain('6')
+        expect(likeButton.textContent).toBe('Like')
+
+        fireEvent.click(likeButton)
+        await wait(() => {
+            expect(numberOfLikes.textContent).toContain('7')
+        })
     })
 
-    it('shows `Liked` on button if already liked', async () => {
+    it('shows `Liked` on button if already liked, reduces like count if `Liked button clicked', async () => {
         const { findByLabelText } = render(<Recipe />, customResolvers)
         user.favourites = [{ _id: '1', }, { _id: '2', }]
         mockGetUser.mockReturnValue(user)
-        expect(await (await findByLabelText(/like-button/i)).textContent).toContain('Liked')
+
+        const likeButton = await findByLabelText(/like-button/i)
+        const numberOfLikes = await findByLabelText(/recipe-likes/i)
+
+        expect(numberOfLikes.textContent).toContain('6')
+        expect(likeButton.textContent).toBe('Liked')
+
+        fireEvent.click(likeButton)
+        await wait(() => {
+            expect(numberOfLikes.textContent).toContain('5')
+        })
     })
 })
