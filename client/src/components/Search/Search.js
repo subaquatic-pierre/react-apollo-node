@@ -10,6 +10,7 @@ import {
     CardContent,
 } from '@material-ui/core'
 
+import Error from '../Error'
 import { RECIPE_SEARCH } from '../../queries/recipeSearch'
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchData, setSearchData] = useState([])
-    const [search, searchDataRes] = useLazyQuery(RECIPE_SEARCH,
+    const [search, { error }] = useLazyQuery(RECIPE_SEARCH,
         {
             variables: { searchTerm: searchTerm },
             onCompleted: data => {
@@ -77,6 +78,8 @@ const Search = () => {
             })
         }
     }
+
+    if (error) return <Error message={error.message} />
 
     const SearchRecipeCard = ({ recipe }) => {
         return (

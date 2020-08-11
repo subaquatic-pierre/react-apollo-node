@@ -1,48 +1,44 @@
 import React from 'react';
 import Search from '../Search';
-import { RECIPE_SEARCH } from '../../../queries/recipeSearch'
-import { render, fireEvent } from '../../../test/utils'
+import user from '@testing-library/user-event'
+import { render, wait } from '../../../test/utils'
+import { recipe1, recipe2 } from '../../../test/__mocks__'
 
-it('renders without error', () => {
-    const wrapper = render(<Search />)
-})
+const customResolvers = {
+    Query: () => ({
+        recipeSearch: () => (
+            [
+                recipe1,
+                recipe2
+            ]
+        )
+    })
+}
 
-const mocks = [
-    {
-        request: {
-            query: RECIPE_SEARCH,
-            variables: { searchTerm: 'recipe' },
-        },
-        result: {
-            data: {
-                recipeSearch: [
-                    {
-                        name: 'Recipe',
-                        likes: 4
-                    },
-                ]
+it('renders error if error', async () => {
+    const errorResolver = {
+        Query: () => ({
+            recipeSearch: () => {
+                throw new Error('There was an error')
             }
-        }
+        })
     }
-]
+    const { getByRole } = render(<Search />, errorResolver)
 
-it('renders spinner if loading', () => {
-
-
-    const { container, getByPlaceholderText, debug } = render(<Search />)
-    const inputNode = getByPlaceholderText('Enter search term')
-
-    // fireEvent.change(inputNode, { target: { value: 'r' } })
+    const input = getByRole(('searchbox'))
+    user.type(input, 'some')
+    await wait(() => {
+        getByRole('error')
+    })
 })
 
-it('renders error if error', () => {
+it('renders two recipes searched for', async () => {
+    const { getByRole, getByText, debug } = render(<Search />, customResolvers)
 
-})
-
-it('searchs on input change', () => {
-
-})
-
-it('searches on input blur', () => {
-
+    const input = getByRole(('searchbox'))
+    user.type(input, 'some')
+    await wait(() => {
+        getByText(recipe1.name)
+        getByText(recipe2.name)
+    })
 })
