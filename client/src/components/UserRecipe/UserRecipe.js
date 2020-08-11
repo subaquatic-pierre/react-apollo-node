@@ -16,6 +16,7 @@ import { DELETE_RECIPE } from '../../mutations/deleteRecipe';
 
 import { ADD_LIKE } from '../../mutations/addLike'
 
+import handleLikeClick from '../../utils/handleLikeButtonClick'
 import updateUserCreatedRecipes from '../../updateCache/updateUserCreatedRecipes';
 import updateAllRecipes from '../../updateCache/updateAllRecipes';
 import updateFavs from '../../updateCache/updateUserFavs';
@@ -61,26 +62,10 @@ const UserRecipes = ({ recipe, createdRecipes, user }) => {
     const favs = getFavourites(user)
 
     // check if recipe is in current user likes
-    let liked = checkRecipeLiked(favs, recipe._id)
+    let userLiked = checkRecipeLiked(favs, recipe._id)
 
     // create like and unlike mutations
     const [addLike] = useMutation(ADD_LIKE)
-
-    const handleLikeClick = (recipeId) => {
-        liked = !liked
-        addLike({
-            variables: { id: recipeId },
-            update: (store, data) => {
-                // add recipe to current recipes
-                const favourites = user.favourites
-                const newRecipe = { __typename: "Recipe", _id: recipeId }
-                const newFavs = addRecipe(favourites, newRecipe)
-
-                // update `getUser` query with optomistic response
-                updateFavs(store, newFavs)
-            }
-        })
-    }
 
     // handle change of all input box'x, update the state
     const handleDeleteRecipe = (recipeId) => {
@@ -99,7 +84,7 @@ const UserRecipes = ({ recipe, createdRecipes, user }) => {
                 updateUserCreatedRecipes(store, updatedUserCreatedRecipes)
 
                 // remove recipe from user liked recipes if its liked
-                if (liked) {
+                if (userLiked) {
                     const newFavs = removeRecipe(favs, recipeId)
                     updateFavs(store, newFavs)
                 }
@@ -128,11 +113,11 @@ const UserRecipes = ({ recipe, createdRecipes, user }) => {
                     </ListItem>
                 </List>
                 <div className={classes.buttonDiv}>
-                    {!liked ?
+                    {!userLiked ?
                         <Button
                             color='default'
                             variant='contained'
-                            onClick={() => handleLikeClick(recipe._id)}
+                            onClick={() => handleLikeClick(recipe._id, { user, addLike })}
                             className={classes.button}>
                             Like
                         </Button >

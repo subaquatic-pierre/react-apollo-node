@@ -17,6 +17,7 @@ import { REMOVE_LIKE } from '../../mutations/removeLike'
 import { ADD_LIKE } from '../../mutations/addLike'
 import updateFavs from '../../updateCache/updateUserFavs';
 import { removeRecipe, addRecipe, checkRecipeLiked, getFavourites } from '../../updateCache/helpers';
+import handleLikeClick from '../../utils/handleLikeButtonClick'
 import getUser from '../../auth/getUser'
 import Loading from '../Loading'
 import Error from '../Error'
@@ -63,36 +64,6 @@ const Recipe = () => {
             variables: { id: recipeId },
         }
     )
-
-    const handleLikeClick = (recipeId) => {
-        // if user already likes recipe choose to `removeLike` mutation else `addLike` mutation
-        if (liked) {
-            removeLike({
-                variables: { id: recipeId },
-                update: (store, data) => {
-                    // remove recipe from current recipes
-                    const recipes = user.favourites
-                    const newFavs = removeRecipe(recipes, recipeId)
-
-                    // update `getUser` query with optomistic response
-                    updateFavs(store, newFavs)
-                }
-            })
-        } else {
-            addLike({
-                variables: { id: recipeId },
-                update: (store, data) => {
-                    // add recipe to current recipes
-                    const favourites = user.favourites
-                    const newRecipe = { __typename: "Recipe", _id: recipeId }
-                    const newFavs = addRecipe(favourites, newRecipe)
-
-                    // update `getUser` query with optomistic response
-                    updateFavs(store, newFavs)
-                }
-            })
-        }
-    }
 
     useEffect(() => {
         // get list of current user likes
@@ -146,7 +117,14 @@ const Recipe = () => {
                                     variant='contained'
                                     color='primary'
                                     aria-label='like-button'
-                                    onClick={(id) => handleLikeClick(recipeId)}>
+                                    onClick={(id) => handleLikeClick(
+                                        recipeId,
+                                        {
+                                            addLike,
+                                            removeLike,
+                                            liked,
+                                            user
+                                        })}>
                                     {liked ? <span>Liked</span> : <span>Like</span>}
                                 </Button>
                             </>

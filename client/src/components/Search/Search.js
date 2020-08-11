@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchData, setSearchData] = useState([])
-    const [search, { error }] = useLazyQuery(RECIPE_SEARCH,
+    const [search, { error, refetch }] = useLazyQuery(RECIPE_SEARCH,
         {
             variables: { searchTerm: searchTerm },
             onCompleted: data => {
@@ -71,7 +71,7 @@ const Search = () => {
 
     const handleRefetch = () => {
         if (searchData.called) {
-            searchDataRes.refetch({ variables: { searchTerm: searchTerm } }).then(res => {
+            refetch({ variables: { searchTerm: searchTerm } }).then(res => {
                 setSearchData(res.data.recipeSearch)
             }).catch(err => {
                 console.log(err)
