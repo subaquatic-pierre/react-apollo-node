@@ -2,7 +2,7 @@ const config = require('kcd-scripts/jest')
 
 module.exports = {
   ...config,
-  setupFilesAfterEnv: ['tests/setupEnv.js']
+  setupFilesAfterEnv: ['src/test/setupEnv.js']
 }
 
 
