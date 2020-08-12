@@ -8,6 +8,7 @@ import {
     TextField
 } from '@material-ui/core'
 
+import Error from '../Error';
 import { CREATE_USER } from '../../mutations/createUser'
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +41,8 @@ const initialState = {
 const Signup = () => {
     const [state, setState] = useState({ ...initialState })
     const classes = useStyles()
-    const [createUser] = useMutation(CREATE_USER)
+    const [createUser, { error }] = useMutation(CREATE_USER)
+    // const [error, setError] = useState(false)
 
     // handle change of all input box'x, update the state
     const handleChange = ({ target }) => {
@@ -65,17 +67,19 @@ const Signup = () => {
     // handle submit button click
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (!validateForm()) return
+        // if (!validateForm()) return
 
         // submit request to server with state info from from
         createUser({ variables: { ...state } })
             .then(res => {
                 window.location.assign('/login')
-                console.log(res)
+                // console.log(res)
             }).catch(err => {
                 console.log(err)
             })
     }
+
+    if (error) return <Error message={error.message} />
 
     return (
         <Paper className={classes.paper}>
@@ -125,6 +129,7 @@ const Signup = () => {
                     className={classes.button}
                     onClick={(event) => handleSubmit(event)}
                     type='submit'
+                    name='submitButton'
                 >
                     Submit
                 </Button>
