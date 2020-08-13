@@ -56,7 +56,7 @@ describe('basic rendering', () => {
         const { queryByLabelText } = render(<Recipe />)
         mockGetUser.mockReturnValueOnce(null)
         await wait(() => {
-            expect(queryByLabelText(/like-button/i)).toBeNull()
+            expect(queryByLabelText(/like-button/i)).not.toBeInTheDocument()
         })
     })
 

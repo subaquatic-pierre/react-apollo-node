@@ -13,7 +13,6 @@
     "apollo-mocked-provider": "^3.3.0",
     "graphql": "^15.3.0",
     "jwt-decode": "^2.2.0",
-    "kcd-scripts": "^6.2.4",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
@@ -49,5 +48,16 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "react-dom-instance": "^2.0.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/src/**/*.js",
+      "!**/src/*.js",
+      "!**/src/test/**",
+      "!**/src/queries/**",
+      "!**/src/mutations/**",
+      "!**/__tests__/**",
+      "!**/node_modules/*"
+    ]
   }
 }
