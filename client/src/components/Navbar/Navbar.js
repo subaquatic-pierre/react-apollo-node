@@ -77,7 +77,7 @@ const Navbar = () => {
 
     return (
         <div data-testid='navbar' className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="static" color='primary'>
                 <Toolbar>
                     <Link
                         to='/'

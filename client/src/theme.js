@@ -1,11 +1,14 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import pink from '@material-ui/core/colors/pink';
 
-const theme = createMuiTheme(theme => ({
+const theme = createMuiTheme({
+    palette: {
+        primary: pink
+    },
     overrides: {
         MuiButtonBase: {
             root: {
                 textTransform: 'uppercase',
-                color: 'red'
             }
         },
         MuiCssBaseline: {
@@ -16,6 +19,6 @@ const theme = createMuiTheme(theme => ({
             },
         },
     },
-}))
+})
 
 export default theme

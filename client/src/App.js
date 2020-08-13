@@ -2,9 +2,6 @@ import React from 'react';
 import { InMemoryCache, ApolloLink, HttpLink, ApolloClient, ApolloProvider } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 
-// import ApolloClient from "apollo-boost";
-// import { ApolloProvider } from "react-apollo";
-
 import Layout from './components/Layout'
 import BaseRouter from './routes'
 
