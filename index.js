@@ -2,10 +2,15 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import server from './serverConfig.js'
 
-// initialize process.env
-dotenv.config({ path: 'config.env' })
+PROD_ENV = process.env.PROD_ENV
+
+if (!PROD_ENV) {
+    // initialize process.env
+    dotenv.config({ path: 'config.env' })
+}
 
 // import variables from config.env
+
 const DB_URI = process.env.DB_URI
 const USER = process.env.USER
 const PASSWORD = process.env.PASS
@@ -17,8 +22,8 @@ mongoose.connect(DB_URI, {
     useCreateIndex: true,
     user: USER,
     pass: PASSWORD
-
 }
+
 ).then(() => console.log(`Connected to database at ${DB_URI}`)).catch(err => console.log(err));
 
 server.listen().then(() => {
