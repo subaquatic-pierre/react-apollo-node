@@ -12,7 +12,9 @@ const DB_URI = process.env.DB_URI
 mongoose.connect(DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    user: 'user',
+    pass: 'password'
 }
 ).then(() => console.log(`Connected to database at ${DB_URI}`)).catch(err => console.log(err));
 

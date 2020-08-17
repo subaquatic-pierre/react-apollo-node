@@ -4,10 +4,15 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "13.10.1"
+  },
   "scripts": {
     "server": "nodemon index.js",
     "client": "cd client && npm start",
+    "clientProd": "cd client && serve -s build",
     "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
+    "prod": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run clientProd --silent\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
