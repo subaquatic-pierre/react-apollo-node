@@ -49,7 +49,7 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 // create link to server
-const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
+const httpLink = new HttpLink({ uri: 'https://apollo-react-recipes-app.herokuapp.com/' });
 
 // create new apollo client
 const client = new ApolloClient({
