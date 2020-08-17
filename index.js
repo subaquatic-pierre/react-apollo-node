@@ -7,14 +7,17 @@ dotenv.config({ path: 'config.env' })
 
 // import variables from config.env
 const DB_URI = process.env.DB_URI
+const USER = process.env.USER
+const PASSWORD = process.env.PASS
 
 // connect to database from config variables
 mongoose.connect(DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    user: 'user',
-    pass: 'password'
+    user: USER,
+    pass: PASSWORD
+
 }
 ).then(() => console.log(`Connected to database at ${DB_URI}`)).catch(err => console.log(err));
 
