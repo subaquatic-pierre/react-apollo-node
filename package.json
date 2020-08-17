@@ -11,6 +11,7 @@
     "server": "nodemon index.js",
     "client": "cd client && npm start",
     "clientProd": "cd client && serve -s build",
+    "build": "cd client && npm install && npm run build",
     "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
     "start": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run clientProd --silent\"",
     "test": "echo \"Error: no test specified\" && exit 1"
