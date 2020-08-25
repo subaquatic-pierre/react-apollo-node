@@ -14,7 +14,7 @@ The back-end server is connected to a MongoDB which is hosted locally on the EC2
 
 ### Website URL:
 
-[recipes-app](recipes.ballot-online.com)
+[recipes-app](https://recipes.ballot-online.com)
 
 ## Features:
 
@@ -30,3 +30,5 @@ The back-end server is connected to a MongoDB which is hosted locally on the EC2
 - React Testing Library
 - Mongo DB
 - GraphQL
+- Nginx
+- AWS
