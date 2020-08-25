@@ -2,13 +2,13 @@
 
 This app is designed for users to create recipes and share them with their friends, leveraging the power of React, Apollo and GraphQL.
 
-## Feel free to signup and create you own recipe !!
+### Feel free to sign-up and create you own recipe !!
 
 ### Website URL:
 
 [recipes-app](https://recipes.ballot-online.com)
 
-Emphasis was placed on testing React components with React Testing Library.
+While creating the app, emphasis was placed on testing React components with React Testing Library.
 
 All queries and mutations to the database are optimistically updated within the UI before being updated from server data.
 
@@ -29,6 +29,7 @@ The back-end server is connected to a MongoDB which is hosted locally on the EC2
 ## Technologies
 
 - React
+- Material UI
 - Apollo Client
 - Apollo Server
 - React Testing Library
