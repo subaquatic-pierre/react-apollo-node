@@ -31,6 +31,7 @@ export const resolvers = {
             return recipe
         },
         getUser: async (root, { token }, { User }) => {
+            console.log('connection')
             // use `getUser` function to find user with token
             const currentUser = await getUser(token)
 
